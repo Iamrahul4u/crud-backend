@@ -96,7 +96,7 @@ app.delete("/api/products/:id", async (req, res) => {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-const PORT = process.env.PORT || 3000; // Use the PORT provided by Render or default to 3000
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log("Server is running on port 3000");
 });
