@@ -10,13 +10,15 @@ const app = express();
 configDotenv();
 app.use(express.json());
 const FRONTEND_PORT = process.env.FRONTEND_PORT;
+
+await ConnectDb();
+
 app.use(
   cors({
     origin: FRONTEND_PORT,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-await ConnectDb();
 app.get("/api/products", async (req, res) => {
   try {
     const products = await ProductModel.find();
