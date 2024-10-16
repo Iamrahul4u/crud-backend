@@ -2,14 +2,17 @@ import express from "express";
 import { ConnectDb } from "./dbConnect.js";
 import ProductModel from "./productSchema.js";
 import cors from "cors";
+import { configDotenv } from "dotenv";
 import { upload } from "./multerUpload.js";
 import path from "path";
 import { fileURLToPath } from "url";
 const app = express();
+configDotenv();
 app.use(express.json());
+const FRONTEND_PORT = process.env.FRONTEND_PORT;
 app.use(
   cors({
-    origin: "http://localhost:3001",
+    origin: FRONTEND_PORT,
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
@@ -91,7 +94,7 @@ app.delete("/api/products/:id", async (req, res) => {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-app.listen(3000, () => {
+const PORT = process.env.PORT || 3000; // Use the PORT provided by Render or default to 3000
+app.listen(PORT, () => {
   console.log("Server is running on port 3000");
 });
